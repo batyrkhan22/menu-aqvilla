@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#2d5a27">
+  <title>AQ VILLA — Меню</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+  <style>
+
+    :root {
+      --green: #2d5a27;
+      --green-light: #3a7332;
+      --green-dark: #1e3d1a;
+      --gold: #c9a84c;
+      --gold-light: #d4bc6e;
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e8e8e8;
+      --gray-400: #9ca3af;
+      --gray-600: #6b7280;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 20px rgba(45,90,39,0.12);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --header-h: 72px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.5;
+      overflow-x: hidden;
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 12px 16px 10px;
+    }
+    .logo-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      animation: logoDrop 0.9s cubic-bezier(0.34,1.56,0.64,1) forwards;
+      opacity: 0; transform: translateY(-80px);
+    }
+    @keyframes logoDrop {
+      0%   { opacity:0; transform:translateY(-80px); }
+      60%  { opacity:1; transform:translateY(8px); }
+      80%  { transform:translateY(-4px); }
+      100% { opacity:1; transform:translateY(0); }
+    }
+
+    /* ─────────────────────────────────────────
+       ЛОГОТИП СУРЕТІ
+       src="aqvilla_logo.png" — осы жерге өз
+       логотип файлыңның атын жаз.
+       Файл index.html-мен БІР ҚАЛТАДА болсын.
+       Ұсынылған өлшем: 120x120px, PNG (фонсыз)
+    ───────────────────────────────────────── */
+    .logo-img-wrap {
+      width: 56px; height: 56px; border-radius: 50%;
+      overflow: hidden; border: 2.5px solid var(--gold-light);
+      box-shadow: var(--shadow-sm); background: #f0f0f0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-img-wrap img { width:100%; height:100%; object-fit:cover; }
+
+    .logo-text { font-size:1.35rem; font-weight:800; letter-spacing:0.18em; color:var(--green); }
+    .logo-sub  { font-size:0.65rem; font-weight:500; letter-spacing:0.12em; color:var(--gray-600); text-transform:uppercase; }
+
+    /* LANG */
+    .lang-bar { display:flex; justify-content:center; gap:8px; margin-top:10px; }
+    .lang-btn {
+      min-width:44px; min-height:44px; padding:8px 16px;
+      border:2px solid var(--gray-200); background:var(--white);
+      border-radius:999px; font-family:inherit; font-size:0.75rem;
+      font-weight:700; letter-spacing:0.05em; color:var(--gray-600); cursor:pointer;
+      transition:var(--transition);
+    }
+    .lang-btn.active { background:var(--green); border-color:var(--green); color:var(--white); }
+    .lang-btn:not(.active):hover { border-color:var(--gold); color:var(--green); }
+
+    /* TABS */
+    .tabs-wrap {
+      position:sticky; top:var(--header-h); z-index:90;
+      background:var(--white); border-bottom:1px solid var(--gray-200); padding:8px 0;
+    }
+    .tabs-scroll {
+      display:flex; gap:8px; overflow-x:auto;
+      scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+      scrollbar-width:none; padding:4px 16px;
+    }
+    .tabs-scroll::-webkit-scrollbar { display:none; }
+    .tab-btn {
+      flex-shrink:0; scroll-snap-align:start;
+      display:flex; flex-direction:column; align-items:center; gap:4px;
+      min-width:80px; min-height:52px; padding:8px 10px;
+      border:none; background:var(--gray-100); border-radius:var(--radius-sm);
+      cursor:pointer; transition:var(--transition); font-family:inherit;
+    }
+    .tab-btn .tab-icon  { font-size:1.25rem; line-height:1; }
+    .tab-btn .tab-label {
+      font-size:0.55rem; font-weight:600; color:var(--gray-600);
+      text-align:center; line-height:1.2; max-width:80px;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    }
+    .tab-btn.active { background:var(--green); box-shadow:var(--shadow-md); transform:scale(1.02); }
+    .tab-btn.active .tab-label { color:var(--white); }
+
+    /* MENU PANEL */
+    .menu-panel { padding:16px 16px 100px; animation:panelIn 0.4s ease forwards; }
+    @keyframes panelIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+    .menu-panel.switching { animation:panelOut 0.2s ease forwards; }
+    @keyframes panelOut { to{opacity:0;transform:translateY(-8px)} }
+
+    .category-title {
+      font-size:1.1rem; font-weight:700; color:var(--green);
+      margin-bottom:16px; padding-bottom:8px; border-bottom:2px solid var(--gold);
+      display:flex; align-items:center; gap:8px;
+    }
+    .menu-list { display:flex; flex-direction:column; gap:14px; }
+
+    /* CARD */
+    .menu-card {
+      display:flex; gap:14px; padding:14px;
+      background:var(--white); border:1px solid var(--gray-200);
+      border-radius:var(--radius); box-shadow:var(--shadow-sm);
+      opacity:0; transform:translateY(24px);
+      transition:opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+    .menu-card.visible { opacity:1; transform:translateY(0); }
+    .menu-card:active  { box-shadow:var(--shadow-md); }
+
+    /* ─────────────────────────────────────────
+       ТАҒАМ СУРЕТТЕРІ
+       Әрбір тағамда img: "photo_XXX.jpg" бар
+       Сол файл атын өз суретіңнің атына өзгерт.
+       Барлық фото БІР ҚАЛТАДА (index.html жанында).
+       Ұсынылған өлшем: 160×160px, квадрат crop
+    ───────────────────────────────────────── */
+    .card-image-wrap { flex-shrink:0; width:80px; height:80px; }
+    .card-image {
+      width:80px; height:80px; border-radius:50%; object-fit:cover;
+      border:3px solid var(--gold-light); box-shadow:var(--shadow-sm);
+      animation:floatWave 4s ease-in-out infinite; background:var(--gray-100);
+    }
+    .menu-card:nth-child(even) .card-image { animation-delay:-2s; }
+    .menu-card:nth-child(3n)   .card-image { animation-delay:-1s; }
+    .menu-card:nth-child(4n)   .card-image { animation-delay:-3s; }
+    @keyframes floatWave { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+    .card-body { flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; }
+    .card-top  { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
+    .card-name  { font-size:0.875rem; font-weight:700; color:var(--black); line-height:1.3; }
+    .card-price { flex-shrink:0; font-size:0.8rem; font-weight:700; color:var(--green); white-space:nowrap; }
+    .card-desc  { font-size:0.72rem; color:var(--gray-600); line-height:1.45; }
+
+    .hit-badge {
+      display:inline-flex; align-items:center; gap:2px; margin-top:4px;
+      padding:3px 8px; background:linear-gradient(135deg,#ff6b35,#ff8c42);
+      color:var(--white); font-size:0.6rem; font-weight:800;
+      letter-spacing:0.08em; border-radius:999px; width:fit-content;
+    }
+    .section-note {
+      font-size:0.75rem; font-weight:600; color:var(--gold);
+      margin:12px 0 8px; text-transform:uppercase; letter-spacing:0.06em;
+    }
+
+    /* INSTAGRAM FAB */
+    .instagram-fab {
+      position:fixed; bottom:24px;
+      right:max(16px, calc(50% - 215px + 16px));
+      z-index:200; width:52px; height:52px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+      box-shadow:0 4px 20px rgba(220,39,67,0.4);
+      text-decoration:none; animation:pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100%{transform:scale(1); box-shadow:0 4px 20px rgba(220,39,67,0.4);}
+      50%    {transform:scale(1.08); box-shadow:0 6px 28px rgba(220,39,67,0.55);}
+    }
+    .instagram-fab i {
+  font-size:28px;
+  color:white;
+}
+
+    /* FOOTER */
+    .footer {
+      text-align:center; padding:24px 16px 32px;
+      background:var(--gray-50); border-top:1px solid var(--gray-200);
+    }
+    .footer-service { font-size:0.72rem; color:var(--gray-600); margin-bottom:8px; }
+    .footer-brand   { font-size:0.8rem; font-weight:700; color:var(--green); letter-spacing:0.1em; }
+    .footer-contact{
+  margin: 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d5a27;
+}
+  </style>
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="logo-wrap">
+
+    <!-- ═══════════════════════════════════════════
+         📸 ЛОГОТИП СУРЕТІ
+         src="" — тырнақшаның ішіне логотип файлының
+         атын жаз. Мысалы: src="logo.png"
+         Файл index.html-мен БІР ҚАЛТАДА болсын.
+    ═══════════════════════════════════════════ -->
+    <div class="logo-img-wrap">
+      <img src="logo.png" alt="AQ VILLA" width="56" height="56"
+        onerror="this.style.display='none'">
+    </div>
+
+    <div class="logo-text">AQ VILLA</div>
+    <div class="logo-sub" data-i18n="subtitle">Демалыс аймағы · Pool Zone</div>
+  </div>
+  <div class="lang-bar">
+    <button class="lang-btn" data-lang="kz">KZ</button>
+    <button class="lang-btn active" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</header>
+
+
+<div class="tabs-wrap">
+  <div class="tabs-scroll" id="tabsScroll" role="tablist"></div>
+</div>
+
+<main id="menuContainer"></main>
+
+<!-- ═══════════════════════════════════════════
+     📸 INSTAGRAM СІЛТЕМЕСІ
+     href="" — тырнақшаның ішіне инстаграм
+     бетіңнің сілтемесін жаз.
+     Мысалы: href="https://instagram.com/aqvilla"
+═══════════════════════════════════════════ -->
+<a class="instagram-fab" href="https://www.instagram.com/aqvilla_shymkent" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+  <i class="fa-brands fa-instagram"></i>
+</a>
+
+<footer class="footer">
+  <p class="footer-service">Обслуживание: 12% • Время приготовления: 30-60 мин</p>
+
+  <p class="footer-contact">
+    Для заказа сайта звоните: +7 777 677 0222
+  </p>
+
+  <p class="footer-brand">AQ VILLA © 2025</p>
+</footer>
+
+<script>
+const UI = {
+  subtitle:      { ru:'Демалыс аймағы · Pool Zone',                      kz:'Демалыс аймағы · Pool Zone',                  en:'Recreation Zone · Pool Zone' },
+  footerService: { ru:'Обслуживание: 12% • Время приготовления: 30-60 мин', kz:'Қызмет: 12% • Дайындалу уақыты: 30-60 мин', en:'Service: 12% • Prep time: 30-60 min' },
+  hit:           { ru:'ХИТ',      kz:'ХИТ',         en:'HIT'   },
+  fruitBowls:    { ru:'Фруктовые чаши',  kz:'Жеміс чашалары',  en:'Fruit Bowls'  },
+  hotDrinks:     { ru:'Горячие напитки', kz:'Ыстық сусындар',  en:'Hot Drinks'   },
+  coldDrinks:    { ru:'Холодные напитки',kz:'Суық сусындар',   en:'Cold Drinks'  },
+  lemonades:     { ru:'Лимонады',        kz:'Лимонадтар',      en:'Lemonades'    },
+  beer:          { ru:'Пиво',            kz:'Сыра',            en:'Beer'         },
+  alcohol:       { ru:'Алкоголь',        kz:'Алкоголь',        en:'Alcohol'      },
+  whiskey:       { ru:'Виски',           kz:'Виски',           en:'Whiskey'      },
+  toBeer:        { ru:'К пиву',          kz:'Сыраға қосымша',  en:'Beer Snacks'  },
+  glasse:        { ru:'Гляссе / Коктейль', kz:'Глясе / Коктейль', en:'Glasse / Cocktail' },
+  tg:            { ru:'тг', kz:'тг', en:'₸' },
+  per100g:       { ru:'/100г', kz:'/100г', en:'/100g' },
+  byWeight:      { ru:'цена по весу', kz:'салмақ бойынша', en:'price by weight' }
+};
+
+const CATEGORIES = [
+  { id:'first',      icon:'🍲', name:{ ru:'Первое блюдо',    kz:'Бірінші тағам', en:'First Course'  }},
+  { id:'main',       icon:'🍽️', name:{ ru:'Второе блюдо',    kz:'Екінші тағам',  en:'Main Course'   }},
+  { id:'salads',     icon:'🥗', name:{ ru:'Салаты',          kz:'Салаттар',      en:'Salads'        }},
+  { id:'pizza',      icon:'🍕', name:{ ru:'Пицца',           kz:'Пицца',         en:'Pizza'         }},
+  { id:'bbq',        icon:'🥩', name:{ ru:'Шашлык',          kz:'Шашлык',        en:'BBQ'           }},
+  { id:'assorted',   icon:'🍱', name:{ ru:'Ассорти',         kz:'Ассорти',       en:'Assorted'      }},
+  { id:'bakery',     icon:'🥖', name:{ ru:'Хлебные изделия', kz:'Нан өнімдері',  en:'Bakery'        }},
+  { id:'appetizers', icon:'🫙', name:{ ru:'Закуски',         kz:'Салқын тағам',  en:'Appetizers'    }},
+  { id:'group',      icon:'👨‍👩‍👧', name:{ ru:'На компанию',    kz:'Топтық тағам',  en:'Group Meals'   }},
+  { id:'sides',      icon:'🍚', name:{ ru:'Гарниры',         kz:'Қосымша',       en:'Sides'         }},
+  { id:'drinks',     icon:'🥤', name:{ ru:'Напитки',         kz:'Сусындар',      en:'Drinks'        }},
+  { id:'bar',        icon:'🍸', name:{ ru:'Бар',             kz:'Бар',           en:'Bar'           }},
+];
+//photos-menu
+const MENU = {
+  first: [
+    { name:{ru:'Шурпа из говядины',kz:'Сиыр етінен шурпа',en:'Beef Shurpa'},
+      price:'2400',
+      /* 📸 ФОТО: шурпа суреті | файл атын өзгерт */ img:'beef shurpa.jpg',
+      desc:{ru:'Наваристый говяжий бульон с картофелем и овощами, традиционное казахское блюдо',kz:'Картоп пен көкөніспен дайындалған сиыр еті сорпасы, дәстүрлі қазақ тағамы',en:'Rich beef broth with potato and vegetables, traditional Kazakh dish'}},
+    { name:{ru:'Солянка',kz:'Солянка',en:'Solyanka'},
+      price:'2100',
+      /* 📸 ФОТО: солянка суреті */ img:'solyanka.jpg',
+      desc:{ru:'Кисло-соленый суп с мясным ассорти, оливками и лимоном',kz:'Ет ассортиімен, зәйтүнмен және лимонмен дайындалған ашты-тұщы сорпа',en:'Sour-salty soup with mixed meats, olives and lemon'}},
+    { name:{ru:'Куксей',kz:'Куксей',en:'Kuksu'},
+      price:'2000',
+      /* 📸 ФОТО: куксей суреті */ img:'kukssi.jpg',
+      desc:{ru:'Корейский холодный суп с лапшой, овощами и острым соусом',kz:'Кәрістік суық сорпа, кеспе, көкөніс және ащы соуспен',en:'Korean cold noodle soup with vegetables and spicy sauce'}},
+    { name:{ru:'Рамен',kz:'Рамен',en:'Ramen'},
+      price:'1800',
+      /* 📸 ФОТО: рамен суреті */ img:'ramen.jpg',
+      desc:{ru:'Японский суп с пшеничной лапшой, яйцом и мясным бульоном',kz:'Жапондық бидай кеспелі, жұмыртқалы және ет сорпалы тағам',en:'Japanese noodle soup with wheat noodles, egg and meat broth'}},
+    { name:{ru:'Окрошка',kz:'Окрошка',en:'Okroshka'},
+      price:'1500',
+      /* 📸 ФОТО: окрошка суреті */ img:'okroshka.jpg',
+      desc:{ru:'Освежающий холодный суп на квасе с овощами и колбасой',kz:'Квасқа негізделген суық сорпа, көкөніс және шұжықпен',en:'Refreshing cold soup with kvas, vegetables and sausage'}},
+    { name:{ru:'Пельмени',kz:'Пельмен',en:'Pelmeni'},
+      price:'1900',
+      /* 📸 ФОТО: пельмени суреті */ img:'pelmeni.jpg',
+      desc:{ru:'Домашние пельмени с сочной говяжьей начинкой в бульоне',kz:'Шырынды сиыр еті толтырылған үй пельмендері',en:'Homemade dumplings with juicy beef filling in broth'}},
+    { name:{ru:'Лапша с Курицей',kz:'Тауықпен кеспе',en:'Chicken Noodle Soup'},
+      price:'1800',
+      /* 📸 ФОТО: лапша с курицей суреті */ img:'lapsha_kurica.jpg',
+      desc:{ru:'Домашняя лапша с нежным куриным мясом в ароматном бульоне',kz:'Хош иісті сорпадағы жұмсақ тауық етімен үй кеспесі',en:'Homemade noodles with tender chicken in aromatic broth'}},
+    { name:{ru:'Домашний Лагман',kz:'Үй лагманы',en:'Homemade Lagman'},
+      price:'2000',
+      /* 📸 ФОТО: лагман суреті */ img:'lagman.jpg',
+      desc:{ru:'Тянутая лапша с говядиной и свежими овощами в густом соусе',kz:'Сиыр еті мен жаңа көкөніспен тартылған кеспе қою соуста',en:'Hand-pulled noodles with beef and fresh vegetables in thick sauce'}},
+    { name:{ru:'Нарын',kz:'Нарын',en:'Naryn'},
+      price:'2000',
+      /* 📸 ФОТО: нарын суреті */ img:'naryn.jpg',
+      desc:{ru:'Традиционное казахское блюдо из тонкой лапши с конским мясом',kz:'Жылқы еті мен жіңішке кеспеден жасалған дәстүрлі қазақ тағамы',en:'Traditional Kazakh dish of thin noodles with horse meat'}}
+  ],
+
+  main: [
+    { name:{ru:'Куырдак',kz:'Қуырдақ',en:'Kuurdak'},price:'2800',
+      /* 📸 ФОТО: куырдак суреті */ img:'kuirdak.jpg',
+      desc:{ru:'Жареные субпродукты с луком и картофелем по-казахски',kz:'Қазақша пісірілген қуырылған ішкі ет, пияз және картоппен',en:'Fried offal with onions and potato, Kazakh style'}},
+    { name:{ru:'Плов',kz:'Палау',en:'Plov'},price:'2000',
+      /* 📸 ФОТО: плов суреті */ img:'plov.jpg',
+      desc:{ru:'Ароматный рис с говядиной, морковью и восточными специями',kz:'Сиыр еті, сәбіз және шығыс дәмдеуіштерімен хош иісті күріш',en:'Fragrant rice with beef, carrots and eastern spices'}},
+    { name:{ru:'Манты',kz:'Манты',en:'Manti'},price:'2200',
+      /* 📸 ФОТО: манты суреті */ img:'manti.jpg',
+      desc:{ru:'Паровые казахские манты с сочной говяжьей начинкой',kz:'Шырынды сиыр еті толтырылған буда пісірілген қазақша манты',en:'Steamed Kazakh dumplings with juicy beef filling'}},
+    { name:{ru:'Фри с мясом',kz:'Етпен фри',en:'Fries with Meat'},price:'2800',
+      /* 📸 ФОТО: фри с мясом суреті */ img:'fri_myaso.jpg',
+      desc:{ru:'Хрустящая картошка фри с нежными кусочками говядины',kz:'Жұмсақ сиыр еті кесектерімен хрустящий картоп фри',en:'Crispy french fries with tender beef pieces'}},
+    { name:{ru:'Курица с грибами в сливочном соусе',kz:'Кремді соустағы тауық',en:'Chicken with Mushrooms'},price:'2800',
+      /* 📸 ФОТО: курица с грибами суреті */ img:'kurica_gribi.jpg',
+      desc:{ru:'Нежная куриная грудка с шампиньонами в нежном сливочном соусе',kz:'Кремді соустағы саңырауқұлақпен жұмсақ тауық кеудесі',en:'Tender chicken breast with mushrooms in creamy sauce'}},
+    { name:{ru:'Стейк Рибай',kz:'Рибай стейк',en:'Ribeye Steak'},price:'6000',
+      /* 📸 ФОТО: стейк рибай суреті */ img:'steak_ribeye.jpg',
+      desc:{ru:'Сочный стейк рибай на гриле, приготовленный до идеальной прожарки',kz:'Мінсіз піскен шырынды рибай стейкі',en:'Juicy grilled ribeye steak cooked to perfect doneness'}},
+    { name:{ru:'Сёмга в сливочном соусе',kz:'Кремді соустағы лосось',en:'Salmon in Cream Sauce'},price:'6600',
+      /* 📸 ФОТО: сёмга суреті */ img:'photo_semga.jpg',
+      desc:{ru:'Нежное филе лосося в изысканном сливочном соусе с зеленью',kz:'Шөппен нәзік кремді соустағы лосось філесі',en:'Tender salmon fillet in delicate creamy sauce with herbs'}},
+    { name:{ru:'Гуйру лагман',kz:'Гуйру лагман',en:'Guiru Lagman'},price:'2500',
+      /* 📸 ФОТО: гуйру лагман суреті */ img:'photo_guiru_lagman.jpg',
+      desc:{ru:'Жареная лапша с мясом и свежими овощами по-уйгурски',kz:'Ұйғырша ет пен жаңа көкөніспен қуырылған кеспе',en:'Fried noodles with meat and fresh vegetables, Uyghur style'}},
+    { name:{ru:'Жареный лагман',kz:'Қуырылған лагман',en:'Fried Lagman'},price:'2500',
+      /* 📸 ФОТО: жареный лагман суреті */ img:'photo_fried_lagman.jpg',
+      desc:{ru:'Классический жареный лагман с говядиной и перцем',kz:'Сиыр еті мен бұрышпен классикалық қуырылған лагман',en:'Classic fried lagman with beef and bell pepper'}},
+    { name:{ru:'Бесбармак',kz:'Бесбармақ',en:'Beshbarmak'},price:'3000',hit:true,
+      /* 📸 ФОТО: бесбармак суреті */ img:'photo_beshbarmak.jpg',
+      desc:{ru:'Национальное казахское блюдо из нежной баранины с лапшой и луком',kz:'Жұмсақ қой еті, кеспе және пиязбен жасалған қазақтың ұлттық тағамы',en:'National Kazakh dish of tender lamb with noodles and onion'}}
+  ],
+
+  salads: [
+    { name:{ru:'AQ VILLA салат',kz:'AQ VILLA салаты',en:'AQ VILLA Salad'},price:'2500',hit:true,
+      /* 📸 ФОТО: AQ VILLA салат суреті */ img:'photo_salat_aqvilla.jpg',
+      desc:{ru:'Фирменный салат ресторана с микс-листьями, томатами и авторской заправкой',kz:'Микс жапырақтары, қызанақ және авторлық соуспен мекеменің фирмалық салаты',en:'Signature salad with mixed greens, tomatoes and house dressing'}},
+    { name:{ru:'Оливье',kz:'Оливье',en:'Olivier'},price:'1800',
+      /* 📸 ФОТО: оливье суреті */ img:'photo_olivier.jpg',
+      desc:{ru:'Классический салат с вареными овощами, колбасой и майонезом',kz:'Пісірілген көкөніс, шұжық және майонезбен классикалық салат',en:'Classic salad with boiled vegetables, sausage and mayonnaise'}},
+    { name:{ru:'Хорётика',kz:'Хорётика',en:'Horyetika'},price:'2000',
+      /* 📸 ФОТО: хорётика суреті */ img:'photo_horyetika.jpg',
+      desc:{ru:'Острый корейский салат из маринованных овощей',kz:'Маринадталған көкөністерден жасалған ащы кәріс салаты',en:'Spicy Korean salad with marinated vegetables'}},
+    { name:{ru:'Цезарь с курицей',kz:'Тауықты Цезарь',en:'Chicken Caesar'},price:'2200',
+      /* 📸 ФОТО: цезарь суреті */ img:'photo_caesar.jpg',
+      desc:{ru:'Классический Цезарь с куриным филе, сухариками и соусом Цезарь',kz:'Тауық філесі, сухари және Цезарь соусымен классикалық Цезарь',en:'Classic Caesar with chicken fillet, croutons and Caesar dressing'}},
+    { name:{ru:'Фруктовый',kz:'Жемісті',en:'Fruit Salad'},price:'2000',
+      /* 📸 ФОТО: фруктовый салат суреті */ img:'photo_fruit_salad.jpg',
+      desc:{ru:'Свежий микс сезонных фруктов со сметаной',kz:'Қаймақпен жаңа маусымдық жемістердің миксі',en:'Fresh mix of seasonal fruits with sour cream'}},
+    { name:{ru:'Нежность',kz:'Нәзік',en:'Nezhnost'},price:'1800',
+      /* 📸 ФОТО: нежность суреті */ img:'photo_nezhnost.jpg',
+      desc:{ru:'Нежный слоеный салат с куриным мясом и грибами',kz:'Тауық еті мен саңырауқұлақпен нәзік қабатты салат',en:'Delicate layered salad with chicken and mushrooms'}},
+    { name:{ru:'Тайский',kz:'Тай',en:'Thai Salad'},price:'2200',
+      /* 📸 ФОТО: тайский салат суреті */ img:'photo_thai_salad.jpg',
+      desc:{ru:'Экзотический тайский салат с острым соусом и свежими травами',kz:'Ащы соус пен жаңа шөптермен экзотикалық тай салаты',en:'Exotic Thai salad with spicy sauce and fresh herbs'}},
+    { name:{ru:'Ачучук',kz:'Ачучук',en:'Achuchuk'},price:'1500',
+      /* 📸 ФОТО: ачучук суреті */ img:'photo_achuchuk.jpg',
+      desc:{ru:'Традиционный узбекский салат из свежих томатов с луком',kz:'Пиязбен жаңа қызанақтан дәстүрлі өзбек салаты',en:'Traditional Uzbek fresh tomato salad with onion'}},
+    { name:{ru:'Свежий салат',kz:'Жаңа салат',en:'Fresh Salad'},price:'1500',
+      /* 📸 ФОТО: свежий салат суреті */ img:'photo_fresh_salad.jpg',
+      desc:{ru:'Микс свежих сезонных овощей с легкой заправкой',kz:'Жеңіл соуспен жаңа маусымдық көкөністердің миксі',en:'Mix of fresh seasonal vegetables with light dressing'}},
+    { name:{ru:'Хан',kz:'Хан',en:'Khan Salad'},price:'2200',
+      /* 📸 ФОТО: хан салат суреті */ img:'photo_khan_salad.jpg',
+      desc:{ru:'Особый мясной салат с говядиной и маринованными овощами',kz:'Сиыр еті мен маринадталған көкөніспен арнайы ет салаты',en:'Special meat salad with beef and pickled vegetables'}}
+  ],
+
+  pizza: [
+    { name:{ru:'AQ VILLA пицца (с казы)',kz:'AQ VILLA пицца (қазы)',en:'AQ VILLA Pizza'},price:'3000',
+      /* 📸 ФОТО: AQ VILLA пицца суреті */ img:'photo_pizza_aqvilla.jpg',
+      desc:{ru:'Фирменная пицца с казы — традиционной казахской колбасой из конины',kz:'Жылқы етінен жасалған дәстүрлі қазақ шұжығы — қазымен фирмалық пицца',en:'Signature pizza with kazy — traditional Kazakh horse meat sausage'}},
+    { name:{ru:'Пепперони (колбаса)',kz:'Пепперони',en:'Pepperoni'},price:'2800',hit:true,
+      /* 📸 ФОТО: пепперони пицца суреті */ img:'photo_pizza_pepperoni.jpg',
+      desc:{ru:'Классическая пицца с острой халяль пепперони, моцареллой и томатным соусом',kz:'Ащы халал пепперони, моцарелла және қызанақ соусымен классикалық пицца',en:'Classic pizza with spicy halal pepperoni, mozzarella and tomato sauce'}},
+    { name:{ru:'Маргарита (помидор)',kz:'Маргарита',en:'Margherita'},price:'2600',
+      /* 📸 ФОТО: маргарита суреті */ img:'photo_pizza_margarita.jpg',
+      desc:{ru:'Нежная пицца с томатным соусом, моцареллой и свежим базиликом',kz:'Қызанақ соусы, моцарелла және жаңа базиликпен нәзік пицца',en:'Classic pizza with tomato sauce, mozzarella and fresh basil'}},
+    { name:{ru:'Мексика (острый, фарш)',kz:'Мексика',en:'Mexican Pizza'},price:'3000',
+      /* 📸 ФОТО: мексика пицца суреті */ img:'photo_pizza_mexico.jpg',
+      desc:{ru:'Острая пицца с говяжьим фаршем, перцем халапеньо и сыром',kz:'Сиыр еті фаршы, халапеньо бұрышы және ірімшікпен ащы пицца',en:'Spicy pizza with ground beef, jalapeño pepper and cheese'}},
+    { name:{ru:'С курицей',kz:'Тауықпен',en:'Chicken Pizza'},price:'2800',
+      /* 📸 ФОТО: пицца с курицей суреті */ img:'photo_pizza_chicken.jpg',
+      desc:{ru:'Сочная пицца с куриным филе, болгарским перцем и моцареллой',kz:'Тауық філесі, бұрыш және моцареллапен шырынды пицца',en:'Juicy pizza with chicken fillet, bell pepper and mozzarella'}}
+  ],
+
+  bbq: [
+    { name:{ru:'Говядина кусковая',kz:'Сиыр еті',en:'Beef Chunks'},price:'800',per100:true,
+      /* 📸 ФОТО: говядина шашлык суреті */ img:'photo_bbq_beef.jpg',
+      desc:{ru:'Сочная говядина на углях, маринованная в фирменном соусе',kz:'Фирмалық соуста маринадталған көмірде пісірілген шырынды сиыр еті',en:'Juicy beef on charcoal, marinated in our signature sauce'}},
+    { name:{ru:'Фарш',kz:'Фарш',en:'Ground Beef Kebab'},price:'800',per100:true,
+      /* 📸 ФОТО: фарш шашлык суреті */ img:'photo_bbq_farsh.jpg',
+      desc:{ru:'Шашлык из говяжьего фарша со специями на шампуре',kz:'Шампурда дәмдеуіштермен сиыр еті фаршынан жасалған шашлык',en:'Ground beef kebab with spices on skewer'}},
+    { name:{ru:'Окарочка',kz:'Тауық сан еті',en:'Chicken Thigh'},price:'800',per100:true,
+      /* 📸 ФОТО: окарочка суреті */ img:'photo_bbq_chicken.jpg',
+      desc:{ru:'Куриное бедрышко на гриле с ароматными специями',kz:'Хош иісті дәмдеуіштермен грильдегі тауық санының еті',en:'Grilled chicken thigh with aromatic spices'}}
+  ],
+
+  assorted: [
+    { name:{ru:'Мясное ассорти',kz:'Ет ассортиі',en:'Meat Assortment'},price:'7000',hit:true,
+      /* 📸 ФОТО: мясное ассорти суреті */ img:'photo_meat_assorted.jpg',
+      desc:{ru:'Большое блюдо с ассорти из различных видов мясных деликатесов',kz:'Әртүрлі ет деликатестерінің үлкен табағы',en:'Large platter of assorted meat delicacies'}},
+    { name:{ru:'Куриное ассорти',kz:'Тауық ассортиі',en:'Chicken Assortment'},price:'6000',
+      /* 📸 ФОТО: куриное ассорти суреті */ img:'photo_chicken_assorted.jpg',
+      desc:{ru:'Ассорти из куриных блюд — крылышки, ножки и филе на гриле',kz:'Тауық тағамдары ассортиі — қанаттар, аяқтар және грильдегі філе',en:'Assorted chicken — wings, legs and grilled fillet'}},
+    { name:{ru:'Жареная рыба',kz:'Қуырылған балық',en:'Fried Fish'},priceLabel:'byWeight',
+      /* 📸 ФОТО: жареная рыба суреті */ img:'photo_fried_fish.jpg',
+      desc:{ru:'Свежая рыба, обжаренная до золотистой корочки',kz:'Алтын қызыл қабықшаға дейін қуырылған жаңа балық',en:'Fresh fish fried to golden crust'}},
+    { name:{ru:'Сазан 1кг',kz:'Сазан 1кг',en:'Carp 1kg'},price:'5000',
+      /* 📸 ФОТО: сазан суреті */ img:'photo_sazan.jpg',
+      desc:{ru:'Целый жареный сазан весом 1 кг с лимоном и зеленью',kz:'Лимон мен шөппен 1 кг салмақтағы тұтас қуырылған сазан',en:'Whole fried carp 1 kg with lemon and herbs'}}
+  ],
+
+  bakery: [
+    { name:{ru:'Хлеб',kz:'Нан',en:'Bread'},price:'250',
+      /* 📸 ФОТО: нан суреті */ img:'photo_bread.jpg',
+      desc:{ru:'Свежий домашний хлеб',kz:'Жаңа үй наны',en:'Fresh homemade bread'}},
+    { name:{ru:'Бауырсак (10шт, на заказ)',kz:'Бауырсақ (10 дана)',en:'Baursak (10 pcs)'},price:'1400',
+      /* 📸 ФОТО: бауырсак суреті */ img:'photo_baursak.jpg',
+      desc:{ru:'Традиционные казахские жареные шарики из теста',kz:'Дәстүрлі қазақша қуырылған қамыр шарлары',en:'Traditional Kazakh fried dough balls'}},
+    { name:{ru:'Хлебная корзина',kz:'Нан себеті',en:'Bread Basket'},price:'1500',
+      /* 📸 ФОТО: хлебная корзина суреті */ img:'photo_bread_basket.jpg',
+      desc:{ru:'Хлеб 2 шт + Бауырсаки 8шт',kz:'Нан 2 дана + Бауырсақ 8 дана',en:'Bread 2 pcs + Baursak 8 pcs'}}
+  ],
+
+  appetizers: [
+    { name:{ru:'Фруктовая нарезка',kz:'Жеміс кесіндісі',en:'Fruit Platter'},price:'7000',
+      /* 📸 ФОТО: фруктовая нарезка суреті */ img:'photo_fruit_platter.jpg',
+      desc:{ru:'Красивая нарезка свежих сезонных фруктов на большом блюде',kz:'Үлкен табақта жаңа маусымдық жемістердің әдемі кесіндісі',en:'Beautiful platter of fresh seasonal fruits'}},
+    { name:{ru:'Русская закуска',kz:'Орыс салқын тағамы',en:'Russian Appetizer Platter'},price:'5000',
+      /* 📸 ФОТО: русская закуска суреті */ img:'photo_russian_appetizer.jpg',
+      desc:{ru:'Ассорти солений, маринадов и традиционных закусок',kz:'Тұздықтар, маринадтар және дәстүрлі салқын тағамдар ассортиі',en:'Assortment of pickles, marinades and traditional appetizers'}}
+  ],
+
+  group: [
+    { name:{ru:'Манты (30шт) + Шашлык Микс',kz:'Манты (30) + Шашлык микс',en:'Manti (30) + BBQ Mix'},price:'22000',
+      /* 📸 ФОТО: манты+шашлык суреті */ img:'photo_group_manti_bbq.jpg',
+      desc:{ru:'Компания 6-8 чел: 30 мантов и ассорти шашлыков (куск. 6 бит, фарш 6 бит)',kz:'6-8 адамға: 30 манты және шашлык ассортиі',en:'6-8 ppl: 30 dumplings and assorted kebabs'}},
+    { name:{ru:'Куырдак (6-8 чел)',kz:'Қуырдақ (6-8)',en:'Kuurdak (6-8 ppl)'},price:'25000',
+      /* 📸 ФОТО: куырдак на компанию суреті */ img:'photo_group_kuirdak.jpg',
+      desc:{ru:'Казахское блюдо на большую компанию',kz:'Үлкен компанияға арналған қазақ тағамы',en:'Kazakh dish for a large group'}},
+    { name:{ru:'Бесбармак (6-8 чел, на заказ)',kz:'Бесбармақ (6-8, тапсырыс)',en:'Beshbarmak (6-8, preorder)'},price:'35000',
+      /* 📸 ФОТО: бесбармак на компанию суреті */ img:'photo_group_beshbarmak.jpg',
+      desc:{ru:'Национальное блюдо для компании, только на заказ',kz:'Компанияға арналған ұлттық тағам, тек тапсырыс бойынша',en:'National dish for groups, preorder only'}},
+    { name:{ru:'Фирменный Микс "AQ VILLA"',kz:'Фирмалық микс "AQ VILLA"',en:'Signature Mix "AQ VILLA"'},price:'40000',hit:true,
+      /* 📸 ФОТО: фирменный микс суреті */ img:'photo_group_signature_mix.jpg',
+      desc:{ru:'8-10 чел: Тибон, Рибай, Сёмга, 10 Шашлык, Куырдак, Манты',kz:'8-10 адам: Тибон, Рибай, Лосось, 10 шашлык, Қуырдақ, Манты',en:'8-10 ppl: Tibon, Ribeye, Salmon, 10 kebabs, Kuurdak, Manti'}}
+  ],
+
+  sides: [
+    { name:{ru:'Фри',kz:'Фри',en:'French Fries'},price:'900',
+      /* 📸 ФОТО: фри суреті */ img:'photo_fries.jpg',
+      desc:{ru:'Хрустящая картошка фри',kz:'Хрустящий картоп фри',en:'Crispy french fries'}},
+    { name:{ru:'Рис',kz:'Күріш',en:'Rice'},price:'700',
+      /* 📸 ФОТО: күріш суреті */ img:'photo_rice.jpg',
+      desc:{ru:'Отварной рис',kz:'Пісірілген күріш',en:'Steamed rice'}},
+    { name:{ru:'Кетчуп, соус, майонез',kz:'Кетчуп, соус, майонез',en:'Ketchup, Sauce, Mayo'},price:'250',
+      /* 📸 ФОТО: соустар суреті */ img:'photo_sauces.jpg',
+      desc:{ru:'На выбор',kz:'Таңдау бойынша',en:'Your choice'}}
+  ],
+
+  // ═══════════════════════════════════════════
+  // 🥤 НАПИТКИ (Сусындар)
+  // ═══════════════════════════════════════════
+  drinks: [
+    { section:'coldDrinks' },
+    { name:{ru:'Кола 1л',kz:'Кола 1л',en:'Cola 1L'},price:'800',
+      /* 📸 ФОТО: кола суреті */ img:'photo_cola.jpg',
+      desc:{ru:'Освежающая Coca-Cola, 1 литр',kz:'Сергітуші Coca-Cola, 1 литр',en:'Refreshing Coca-Cola, 1 litre'}},
+    { name:{ru:'Кола 1,5л',kz:'Кола 1,5л',en:'Cola 1.5L'},price:'1000',
+      /* 📸 ФОТО: кола 1.5л суреті */ img:'photo_cola.jpg',
+      desc:{ru:'Coca-Cola 1,5 литра',kz:'Coca-Cola 1,5 литр',en:'Coca-Cola 1.5 litres'}},
+    { name:{ru:'Кола 2л',kz:'Кола 2л',en:'Cola 2L'},price:'1400',
+      /* 📸 ФОТО: кола 2л суреті */ img:'photo_cola.jpg',
+      desc:{ru:'Coca-Cola 2 литра',kz:'Coca-Cola 2 литр',en:'Coca-Cola 2 litres'}},
+    { name:{ru:'Фанта',kz:'Фанта',en:'Fanta'},price:'800',
+      /* 📸 ФОТО: фанта суреті */ img:'photo_fanta.jpg',
+      desc:{ru:'Fanta апельсин, 1 литр',kz:'Fanta апельсин, 1 литр',en:'Fanta orange, 1 litre'}},
+    { name:{ru:'Соки в ассорт.',kz:'Сок ассортиі',en:'Assorted Juices'},price:'1000',
+      /* 📸 ФОТО: сок суреті */ img:'photo_juice.jpg',
+      desc:{ru:'Натуральные соки — яблоко, персик, томат и др.',kz:'Табиғи шырындар — алма, шабдалы, қызанақ т.б.',en:'Natural juices — apple, peach, tomato etc.'}},
+    { name:{ru:'Мин. вода',kz:'Минерал су',en:'Mineral Water'},price:'500',
+      /* 📸 ФОТО: су суреті */ img:'photo_water.jpg',
+      desc:{ru:'Минеральная вода',kz:'Минерал су',en:'Mineral water'}},
+    { name:{ru:'Боржоми',kz:'Боржоми',en:'Borjomi'},price:'1000',
+      /* 📸 ФОТО: боржоми суреті */ img:'photo_borjomi.jpg',
+      desc:{ru:'Боржоми — грузинская минеральная вода',kz:'Боржоми — грузин минерал суы',en:'Borjomi — Georgian mineral water'}},
+    { name:{ru:'Ред Булл',kz:'Ред Булл',en:'Red Bull'},price:'1000',
+      /* 📸 ФОТО: ред булл суреті */ img:'photo_redbull.jpg',
+      desc:{ru:'Red Bull энергетический напиток',kz:'Red Bull энергетикалық сусын',en:'Red Bull energy drink'}},
+    { name:{ru:'Горилла, Диззи',kz:'Горилла, Диззи',en:'Gorilla, Dizzy'},price:'800',
+      /* 📸 ФОТО: энергетик суреті */ img:'photo_energy.jpg',
+      desc:{ru:'Энергетический напиток',kz:'Энергетикалық сусын',en:'Energy drink'}},
+    { name:{ru:'Макси чай',kz:'Макси шай',en:'Maxi Tea'},price:'850',
+      /* 📸 ФОТО: макси чай суреті */ img:'photo_maxitea.jpg',
+      desc:{ru:'Холодный чай Макси, освежающий',kz:'Сергітуші суық Макси шай',en:'Maxi cold tea, refreshing'}},
+    { name:{ru:'Фьюс чай',kz:'Фьюс шай',en:'Fuze Tea'},price:'850',
+      /* 📸 ФОТО: фьюс чай суреті */ img:'photo_fuzztea.jpg',
+      desc:{ru:'Холодный чай Fuze',kz:'Fuze суық шай',en:'Fuze cold tea'}},
+    { section:'lemonades' },
+    { name:{ru:'Мохито (0,5л)',kz:'Мохито (0,5л)',en:'Mojito (0.5L)'},price:'1500',
+      /* 📸 ФОТО: мохито суреті */ img:'photo_mojito05.jpg',
+      desc:{ru:'Освежающий безалкогольный мохито с мятой и лаймом',kz:'Ятта және лаймпен сергітуші алкогольсыз мохито',en:'Refreshing non-alcoholic mojito with mint and lime'}},
+    { name:{ru:'Мохито (1л)',kz:'Мохито (1л)',en:'Mojito (1L)'},price:'2300',
+      /* 📸 ФОТО: мохито 1л суреті */ img:'photo_mojito.jpg',
+      desc:{ru:'Мохито 1 литр',kz:'Мохито 1 литр',en:'Mojito 1 litre'}},
+    { name:{ru:'Манго маракуя (0,5л)',kz:'Манго маракуйя (0,5л)',en:'Mango Passion (0.5L)'},price:'1500',
+      /* 📸 ФОТО: манго лимонад суреті */ img:'photo_mango_lemonade1.jpg',
+      desc:{ru:'Тропический лимонад манго-маракуйя',kz:'Тропикалық манго-маракуйя лимонады',en:'Tropical mango-passion fruit lemonade'}},
+    { name:{ru:'Манго маракуя (1л)',kz:'Манго маракуйя (1л)',en:'Mango Passion (1L)'},price:'2300',
+      /* 📸 ФОТО: манго лимонад 1л суреті */ img:'photo_mango_lemonade.jpg',
+      desc:{ru:'Тропический лимонад манго-маракуйя, 1 литр',kz:'Тропикалық манго-маракуйя лимонады, 1 литр',en:'Tropical mango-passion fruit lemonade, 1 litre'}},
+    { name:{ru:'Киви Лайм (0,5л)',kz:'Киви Лайм (0,5л)',en:'Kiwi Lime (0.5L)'},price:'1500',
+      /* 📸 ФОТО: киви лимонад суреті */ img:'photo_kiwi_lemonade0.jpg',
+      desc:{ru:'Освежающий лимонад киви с лаймом',kz:'Лаймпен сергітуші киви лимонады',en:'Refreshing kiwi lemonade with lime'}},
+    { name:{ru:'Киви Лайм (1л)',kz:'Киви Лайм (1л)',en:'Kiwi Lime (1L)'},price:'2300',
+      /* 📸 ФОТО: киви лимонад 1л суреті */ img:'photo_kiwi_lemonade.jpg',
+      desc:{ru:'Лимонад киви-лайм, 1 литр',kz:'Киви-лайм лимонады, 1 литр',en:'Kiwi-lime lemonade, 1 litre'}},
+    { name:{ru:'Ягодный (0,5л)',kz:'Жидек (0,5л)',en:'Berry (0.5L)'},price:'1500',
+      /* 📸 ФОТО: ягодный лимонад суреті */ img:'photo_berry_lemonade.jpg',
+      desc:{ru:'Ягодный лимонад из свежих ягод',kz:'Жаңа жидектерден ягодалы лимонад',en:'Berry lemonade from fresh berries'}},
+    { name:{ru:'Ягодный (1л)',kz:'Жидек (1л)',en:'Berry (1L)'},price:'2300',
+      /* 📸 ФОТО: ягодный лимонад 1л суреті */ img:'photo_berry_lemonade1.jpg',
+      desc:{ru:'Ягодный лимонад, 1 литр',kz:'Ягодалы лимонад, 1 литр',en:'Berry lemonade, 1 litre'}},
+    { section:'hotDrinks' },
+    { name:{ru:'Чай (черный/зеленый)',kz:'Шай (қара/жасыл)',en:'Tea (black/green)'},price:'500',
+      /* 📸 ФОТО: шай суреті */ img:'photo_tea.jpg',
+      desc:{ru:'Чёрный или зелёный чай на выбор',kz:'Таңдау бойынша қара немесе жасыл шай',en:'Black or green tea, your choice'}},
+    { name:{ru:'Чай по-ташкентски',kz:'Ташкенттік шай',en:'Tashkent Tea'},price:'1200',
+      /* 📸 ФОТО: ташкентский чай суреті */ img:'photo_tashkent_tea.jpg',
+      desc:{ru:'Зелёный чай по-ташкентски с молоком',kz:'Сүтпен ташкенттік жасыл шай',en:'Tashkent green tea with milk'}},
+    { name:{ru:'Гляссе (0,5)',kz:'Гляссе (0,5)',en:'Glasse (0.5)'},price:'1800',
+      /* 📸 ФОТО: гляссе суреті */ img:'photo_glasse.jpg',
+      desc:{ru:'Кофе со сливочным мороженым',kz:'Кремді балмұздақпен кофе',en:'Coffee with vanilla ice cream'}},
+    { name:{ru:'Коктейль (0,3)',kz:'Коктейль (0,3)',en:'Cocktail (0.3)'},price:'1800',
+      /* 📸 ФОТО: коктейль суреті — банановый молочный, клубничный */ img:'photo_cocktail.jpg',
+      desc:{ru:'Банановый молочный или клубничный коктейль',kz:'Банандық сүтті немесе құлпынайлы коктейль',en:'Banana milkshake or strawberry cocktail'}}
+  ],
+
+  // ═══════════════════════════════════════════
+  // 🍸 БАР (Алкоголь + Пиво + Кальян)
+  // ═══════════════════════════════════════════
+  bar: [
+    { section:'beer' },
+    { name:{ru:'Свежая кружка (0,5л)',kz:'Жаңа кружка (0,5л)',en:'Draft Beer (0.5L)'},price:'780',
+      /* 📸 ФОТО: сыра суреті */ img:'photo_beer_draft.jpg',
+      desc:{ru:'Свежее разливное пиво, 0,5 литра',kz:'Жаңа құйылма сыра, 0,5 литр',en:'Fresh draft beer, 0.5 litre'}},
+    { name:{ru:'Прага (0,5л)',kz:'Прага (0,5л)',en:'Praha (0.5L)'},price:'780',
+      /* 📸 ФОТО: прага сыра суреті */ img:'photo_beer_bottle.jpg',
+      desc:{ru:'Пиво Прага бутылочное, 0,5 литра',kz:'Прага бөтелке сырасы, 0,5 литр',en:'Praha bottled beer, 0.5 litre'}},
+    { section:'alcohol' },
+    { name:{ru:'Абсолют (500мл)',kz:'Абсолют (500мл)',en:'Absolut (500ml)'},price:'1000',
+      /* 📸 ФОТО: абсолют суреті */ img:'photo_absolut.jpg',
+      desc:{ru:'Водка Absolut, 500 мл',kz:'Absolut арақ, 500 мл',en:'Absolut vodka, 500 ml'}},
+    { name:{ru:'Мароша (500мл)',kz:'Мароша (500мл)',en:'Marosha (500ml)'},price:'500',
+      /* 📸 ФОТО: водка суреті */ img:'photo_vodka.jpg',
+      desc:{ru:'Водка Мароша, 500 мл',kz:'Мароша арақ, 500 мл',en:'Marosha vodka, 500 ml'}},
+    { name:{ru:'Айдабулская (500мл)',kz:'Айдабулская (500мл)',en:'Aydabulskaya (500ml)'},price:'5000',
+      /* 📸 ФОТО: водка суреті */ img:'aid.jpg',
+      desc:{ru:'Водка Айдабулская, 500 мл',kz:'Айдабулская арақ, 500 мл',en:'Aydabulskaya vodka, 500 ml'}},
+    { name:{ru:'Синяя гора (500мл)',kz:'Синяя гора (500мл)',en:'Blue Mountain (500ml)'},price:'5000',
+      /* 📸 ФОТО: синяя гора суреті */ img:'bluevod.jpg',
+      desc:{ru:'Водка Синяя гора, 500 мл',kz:'Синяя гора арақ, 500 мл',en:'Blue Mountain vodka, 500 ml'}},
+    { name:{ru:'Романов (500мл)',kz:'Романов (500мл)',en:'Romanov (500ml)'},price:'700',
+      /* 📸 ФОТО: романов суреті */ img:'photo_vodka.jpg',
+      desc:{ru:'Водка Романов, 500 мл',kz:'Романов арақ, 500 мл',en:'Romanov vodka, 500 ml'}},
+    { name:{ru:'Столичная (500мл)',kz:'Столичная (500мл)',en:'Stolichnaya (500ml)'},price:'600',
+      /* 📸 ФОТО: столичная суреті */ img:'stoly.jpg',
+      desc:{ru:'Водка Столичная, 500 мл',kz:'Столичная арақ, 500 мл',en:'Stolichnaya vodka, 500 ml'}},
+    { name:{ru:'Архангельская (500мл)',kz:'Архангельская (500мл)',en:'Arkhangelskaya (500ml)'},price:'600',
+      /* 📸 ФОТО: архангельская суреті */ img:'photo_vodka.jpg',
+      desc:{ru:'Водка Архангельская, 500 мл',kz:'Архангельская арақ, 500 мл',en:'Arkhangelskaya vodka, 500 ml'}},
+    { section:'whiskey' },
+    { name:{ru:'Jameson (500мл)',kz:'Jameson (500мл)',en:'Jameson (500ml)'},price:'20000',
+      /* 📸 ФОТО: jameson суреті */ img:'jame.jpg',
+      desc:{ru:'Ирландский виски Jameson, 500 мл',kz:'Ирландиялық Jameson виски, 500 мл',en:'Irish whiskey Jameson, 500 ml'}},
+    { name:{ru:'Jack Daniels (500мл)',kz:'Jack Daniels (500мл)',en:'Jack Daniels (500ml)'},price:'25000',
+      /* 📸 ФОТО: jack daniels суреті */ img:'jack.jpg',
+      desc:{ru:'Американский виски Jack Daniel\'s, 500 мл',kz:'Американдық Jack Daniel\'s виски, 500 мл',en:'American whiskey Jack Daniel\'s, 500 ml'}},
+    { section:'toBeer' },
+    { name:{ru:'Курт 1 шт',kz:'Құрт 1 дана',en:'Kurt (1 pc)'},price:'200',
+      /* 📸 ФОТО: құрт суреті */ img:'kurt.jpg',
+      desc:{ru:'Традиционный казахский курт',kz:'Дәстүрлі қазақ құрты',en:'Traditional Kazakh kurt'}},
+    { name:{ru:'Чечел 1 порц.',kz:'Чечел 1 порц.',en:'Chechel (1 portion)'},price:'700',
+      /* 📸 ФОТО: чечел суреті */ img:'photo_chechel.jpg',
+      desc:{ru:'Копчёный сыр Чечел',kz:'Ысталған Чечел ірімшігі',en:'Smoked Chechel cheese'}},
+    { name:{ru:'Арахис',kz:'Жержаңғақ',en:'Peanuts'},price:'600',
+      /* 📸 ФОТО: арахис суреті */ img:'photo_peanuts.jpg',
+      desc:{ru:'Жареный арахис',kz:'Қуырылған жержаңғақ',en:'Roasted peanuts'}},
+    { name:{ru:'Фисташки',kz:'Фисташки',en:'Pistachios'},price:'1200',
+      /* 📸 ФОТО: фисташки суреті */ img:'photo_pistachios.jpg',
+      desc:{ru:'Солёные фисташки',kz:'Тұзды фисташки',en:'Salted pistachios'}},
+    { name:{ru:'Чипсы средние',kz:'Орта чипс',en:'Chips (medium)'},price:'800',
+      /* 📸 ФОТО: чипсы суреті */ img:'photo_chips.jpg',
+      desc:{ru:'Чипсы средний размер',kz:'Орта өлшемді чипс',en:'Medium sized chips'}},
+    { name:{ru:'Чипсы большие',kz:'Үлкен чипс',en:'Chips (large)'},price:'1200',
+      /* 📸 ФОТО: чипсы үлкен суреті */ img:'photo_chips.jpg',
+      desc:{ru:'Чипсы большой размер',kz:'Үлкен өлшемді чипс',en:'Large sized chips'}},
+    { name:{ru:'Кириешки средние',kz:'Орта кириешки',en:'Crackers (medium)'},price:'350',
+      /* 📸 ФОТО: кириешки суреті */ img:'photo_crackers.jpg',
+      desc:{ru:'Сухарики кириешки средние',kz:'Орта кириешки кептірмелері',en:'Medium Kirieshki crackers'}},
+    { name:{ru:'Кириешки большие',kz:'Үлкен кириешки',en:'Crackers (large)'},price:'500',
+      /* 📸 ФОТО: кириешки үлкен суреті */ img:'photo_crackers.jpg',
+      desc:{ru:'Сухарики кириешки большие',kz:'Үлкен кириешки кептірмелері',en:'Large Kirieshki crackers'}},
+
+    // ─── КАЛЬЯНДАР ──────────────────────────────
+    { section:'fruitBowls' },
+    { name:{ru:'Лирра',kz:'Лирра',en:'Lirra'},price:'4000',
+      /* 📸 ФОТО: кальян суреті */ img:'photo_hookah.jpg',
+      desc:{ru:'Кальян Лирра',kz:'Лирра кальяны',en:'Lirra hookah'}},
+    { name:{ru:'Адалия',kz:'Адалия',en:'Adalia'},price:'5000',
+      img:'photo_hookah.jpg',
+      desc:{ru:'Кальян Адалия',kz:'Адалия кальяны',en:'Adalia hookah'}},
+    { name:{ru:'Мастхав',kz:'Мастхав',en:'Musthave'},price:'6000',
+      img:'photo_hookah.jpg',
+      desc:{ru:'Кальян Мастхав',kz:'Мастхав кальяны',en:'Musthave hookah'}},
+    { name:{ru:'Дарксайд',kz:'Дарксайд',en:'Darkside'},price:'7000',
+      img:'photo_hookah.jpg',
+      desc:{ru:'Кальян Дарксайд',kz:'Дарксайд кальяны',en:'Darkside hookah'}},
+    { name:{ru:'Тангиерс',kz:'Тангиерс',en:'Tangiers'},price:'8000',
+      img:'photo_hookah.jpg',
+      desc:{ru:'Кальян Тангиерс',kz:'Тангиерс кальяны',en:'Tangiers hookah'}},
+    { name:{ru:'Яблоко (чаша)',kz:'Алма (чаша)',en:'Apple Bowl'},price:'8000',
+      /* 📸 ФОТО: алма чаша суреті */ img:'photo_hookah_apple.jpg',
+      desc:{ru:'Кальян в яблочной чаше',kz:'Алма чашасындағы кальян',en:'Hookah in apple bowl'}},
+    { name:{ru:'Апельсин (чаша)',kz:'Апельсин (чаша)',en:'Orange Bowl'},price:'8000',
+      /* 📸 ФОТО: апельсин чаша суреті */ img:'photo_hookah_orange.jpg',
+      desc:{ru:'Кальян в апельсиновой чаше',kz:'Апельсин чашасындағы кальян',en:'Hookah in orange bowl'}},
+    { name:{ru:'Ананас (чаша)',kz:'Ананас (чаша)',en:'Pineapple Bowl'},price:'9000',
+      /* 📸 ФОТО: ананас чаша суреті */ img:'photo_hookah_pineapple.jpg',
+      desc:{ru:'Кальян в ананасовой чаше',kz:'Ананас чашасындағы кальян',en:'Hookah in pineapple bowl'}},
+    { name:{ru:'Бой чаши',kz:'Бой чаши',en:'Bowl Deposit'},price:'5000',
+      img:'photo_hookah.jpg',
+      desc:{ru:'Залог за чашу',kz:'Чаша кепілі',en:'Bowl deposit'}},
+    { name:{ru:'Бой колбы',kz:'Бой колбы',en:'Base Deposit'},price:'20000',
+      img:'photo_hookah.jpg',
+      desc:{ru:'Залог за колбу кальяна',kz:'Кальян колбасының кепілі',en:'Hookah base deposit'}}
+  ]
+};
+
+// ─── LOGIC ───────────────────────────────────────
+let currentLang = 'ru';
+let currentCategory = 'first';
+let observer = null;
+
+function formatPrice(item, lang) {
+  if (item.priceLabel === 'byWeight') return UI.byWeight[lang];
+  if (!item.price) return '';
+  const unit = UI.tg[lang];
+  const suffix = item.per100 ? UI.per100g[lang] : '';
+  return `${Number(item.price).toLocaleString('ru-RU')} ${unit}${suffix}`;
+}
+
+function renderTabs() {
+  const scroll = document.getElementById('tabsScroll');
+  scroll.innerHTML = CATEGORIES.map(cat => `
+    <button class="tab-btn${cat.id === currentCategory ? ' active' : ''}" type="button" role="tab" data-cat="${cat.id}" aria-selected="${cat.id === currentCategory}">
+      <span class="tab-icon">${cat.icon}</span>
+      <span class="tab-label">${cat.name[currentLang]}</span>
+    </button>
+  `).join('');
+  scroll.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchCategory(btn.dataset.cat, btn));
+  });
+  const active = scroll.querySelector('.tab-btn.active');
+  if (active) active.scrollIntoView({ inline:'center', behavior:'smooth' });
+}
+
+function renderCard(item, lang) {
+  if (item.section) return `<p class="section-note">${UI[item.section]?.[lang] || ''}</p>`;
+  const hitBadge = item.hit ? `<span class="hit-badge">🔥 ${UI.hit[lang]}</span>` : '';
+  const priceStr = formatPrice(item, lang);
+  return `
+    <article class="menu-card" data-observe>
+      <div class="card-image-wrap">
+        <img class="card-image" src="${item.img}" alt="${item.name[lang]}" loading="lazy" width="80" height="80"
+          onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'width:80px;height:80px;border-radius:50%;background:#eef4ee;border:3px solid #d4bc6e;display:flex;align-items:center;justify-content:center;font-size:2rem;animation:floatWave 4s ease-in-out infinite\'>🍽️</div>'">
+      </div>
+      <div class="card-body">
+        <div class="card-top">
+          <h3 class="card-name">${item.name[lang]}</h3>
+          ${priceStr ? `<span class="card-price">${priceStr}</span>` : ''}
+        </div>
+        <p class="card-desc">${item.desc[lang]}</p>
+        ${hitBadge}
+      </div>
+    </article>`;
+}
+
+function renderMenu(animate) {
+  const container = document.getElementById('menuContainer');
+  const cat = CATEGORIES.find(c => c.id === currentCategory);
+  const items = MENU[currentCategory] || [];
+  const html = `
+    <div class="menu-panel" id="menuPanel">
+      <h2 class="category-title"><span>${cat.icon}</span><span>${cat.name[currentLang]}</span></h2>
+      <div class="menu-list">${items.map(i => renderCard(i, currentLang)).join('')}</div>
+    </div>`;
+  if (animate && container.firstElementChild) {
+    container.firstElementChild.classList.add('switching');
+    setTimeout(() => { container.innerHTML = html; initObserver(); }, 200);
+  } else {
+    container.innerHTML = html;
+    initObserver();
+  }
+}
+
+function switchCategory(catId, btn) {
+  if (catId === currentCategory) return;
+  currentCategory = catId;
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.cat === catId);
+    b.setAttribute('aria-selected', b.dataset.cat === catId);
+  });
+  if (btn) btn.scrollIntoView({ inline:'center', behavior:'smooth' });
+  renderMenu(true);
+}
+
+function setLanguage(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (UI[key]) el.textContent = UI[key][lang];
+  });
+  renderTabs();
+  renderMenu(false);
+}
+
+function initObserver() {
+  if (observer) observer.disconnect();
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+  document.querySelectorAll('.menu-card[data-observe]').forEach(card => observer.observe(card));
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+});
+
+renderTabs();
+renderMenu(false);
+
+const header = document.getElementById('header');
+const resizeHeader = () => document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+resizeHeader();
+window.addEventListener('resize', resizeHeader);
+</script>
+</body>
+</html>
